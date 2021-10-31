@@ -1,28 +1,29 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const path = require('path');
-const db = require('./config/connection');
-const routes = require('./routes');
-const { typeDefs, resolvers } = require('./schemas');
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { join } from 'path';
+import dotenv from 'dotenv';
+import db from './config/connection.js';
+//import routes from './routes';
+import { typeDefs, resolvers } from './schemas/index.js';
 
 const app = express();
-require('dotenv').config();
+dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
 });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(join(__dirname, '../client/build')));
 }
 
-app.use(routes);
+//app.use(routes);
 
 db.once('open', () => {
   app.listen(PORT, () => {
