@@ -1,6 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { join } from 'path';
+import path, { resolve } from 'path';
 import dotenv from 'dotenv';
 import db from './config/connection.js';
 import { authMiddleware } from './utils/auth.js';
@@ -22,12 +22,16 @@ server.applyMiddleware({ app });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// The variable __dirname is not exposed by node when using ES6 module imports.
+// We can recreate __dirname with an empty path.resolve()
+const dirname = path.resolve();
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(join(__dirname, '../client/build')));
+  app.use(express.static(resolve(dirname, '../client/build')));
 }
 
 app.get('*', (req, res) => {
-  res.sendFile({ join }(__dirname, '../client/build/index.html'));
+  res.sendFile(resolve(dirname, '../client/build/index.html'));
 });
 
 db.once('open', () => {
