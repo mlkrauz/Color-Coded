@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/row';
 
 
-const Welcome = () => (
+const Export = () => (
     <Container>
         <Row>
             <Col></Col>
@@ -33,4 +33,4 @@ const Welcome = () => (
 
 
 
-export default Welcome;
+export default Export;

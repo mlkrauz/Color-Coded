@@ -1,5 +1,5 @@
-import User from './User';
-import Theme from './Theme';
-import Color from './Color';
+import User from './User.js';
+import Theme from './Theme.js';
+import Color from './Color.js';
 
 export { User, Theme, Color };
