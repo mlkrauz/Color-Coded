@@ -16,6 +16,8 @@ const typeDefs = gql`
     backgrounds: [Color!]
     accents: [Color!]
     typefaces: [Color!]
+    hyperlink_unclicked: Color
+    hyperlink_clicked: Color
   }
 
   type Color {
