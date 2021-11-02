@@ -8,6 +8,11 @@ const themeSchema = new Schema({
     required: true,
     default: 'My Theme',
   },
+  locked: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   primary: {
     type: Schema.Types.ObjectId,
     ref: 'Color',
@@ -25,15 +30,13 @@ const themeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Color',
   }],
-  hyperlink: {
-    unclicked: {
-      type: Schema.Types.ObjectId,
-      ref: 'Color',
-    },
-    clicked: {
-      type: Schema.Types.ObjectId,
-      ref: 'Color',
-    },
+  hyperlink_unclicked: {
+    type: Schema.Types.ObjectId,
+    ref: 'Color',
+  },
+  hyperlink_clicked: {
+    type: Schema.Types.ObjectId,
+    ref: 'Color',
   },
 });
 
