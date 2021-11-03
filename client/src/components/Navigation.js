@@ -14,7 +14,6 @@ function Navigation() {
         <Nav className="me-auto">
           <Nav.Link href="/design">Design</Nav.Link> 
           <Nav.Link href="/export">Export</Nav.Link> 
-          <Nav.Link href="/signup">Signup</Nav.Link>
           <Nav.Link href="/login">Login</Nav.Link>  
           </Nav>
       </Container>
