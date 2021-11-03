@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import Button from 'react-bootstrap/Button'
 
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -64,7 +65,7 @@ function Login(props) {
           </div>
         ) : null}
         <div>
-          <button type='submit'></button>
+          <Button as='input' type='submit' value='Submit' variant='outline-dark'></Button>
         </div>
       </form>
     </div>
