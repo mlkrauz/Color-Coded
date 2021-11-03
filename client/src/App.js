@@ -11,6 +11,8 @@ import { setContext } from '@apollo/client/link/context';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Navigation from './components/Navigation'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
@@ -37,12 +39,13 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <Router>
+        <Navigation />
         <div>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-            </Switch>
+            </Switch> 
         </div>
       </Router>
     </ApolloProvider>
