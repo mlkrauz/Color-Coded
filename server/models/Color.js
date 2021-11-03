@@ -6,30 +6,26 @@ const colorSchema = new Schema({
   color: {
     type: String,
     required: true,
-    match: [/^#?([a-f0-9]{6})$/, 'Must match a 6-digit hex value.'],
+    match: [/^#?([a-fA-F0-9]{6})$/, 'Must match a 6-digit hex value.'],
   },
   shade: {
     type: Number,
-    required: true,
     min: [0, 'Value must be between 0 and 1.'],
-    max: [0, 'Value must be between 0 and 1.'],
+    max: [1, 'Value must be between 0 and 1.'],
     default: 0.8, // 0.8 is 20% less luminosity than the color. 0 is fully black.
   },
   tint: {
     type: Number,
-    required: true,
     min: [0, 'Value must be between 0 and 1.'],
-    max: [0, 'Value must be between 0 and 1.'],
+    max: [1, 'Value must be between 0 and 1.'],
     default: 0.2, // 0.2 is 20% more luminosity than the color. 1 is fully white.
   },
   shadeEnabled: {
     type: Boolean,
-    required: true,
     default: false,
   },
   tintEnabled: {
     type: Boolean,
-    required: true,
     default: false,
   },
 });
