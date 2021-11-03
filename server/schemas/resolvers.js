@@ -1,84 +1,110 @@
 import { User, Theme, Color } from '../models/index.js';
 
 /**
- * @param {Any|Object} argsToBeFiltered - Single arg or object of args to be filtered out.
- * @param {Any} args - Rest of the args to be checked.
+ * @param {Any} args - Object containing args.
  */
-const filterArgs = (argsToBeFiltered, ...args) => {
-  // We don't know if a single arg is being filtered, or an object with many.
-  const arrayOfArgsToFilter = [...argsToBeFiltered];
+const filterIdFromArgs = (args) => {
+  // Convert to an array of [key, value] pairs. Remove Id. Convert back to Object.
+  const keyValuesArray = Object.entries(args);
+  const filteredArray = keyValuesArray.filter((keyValuePair) => keyValuePair[0] !== 'id');
 
-  const filterCallback = (arg) => !arrayOfArgsToFilter.includes(arg);
-
-  return args.filter(filterCallback);
+  return Object.fromEntries(filteredArray);
 };
+
+const allColorFields = '_id color shade tint shadeEnabled tintEnabled';
+
+const allThemeFields = [
+  { path: '_id' },
+  { path: 'name' },
+  { path: 'locked' },
+  { path: 'primary', populate: allColorFields },
+  { path: 'backgrounds', populate: allColorFields },
+  { path: 'accents', populate: allColorFields },
+  { path: 'typefaces', populate: allColorFields },
+  { path: 'hyperlink_unclicked', populate: allColorFields },
+  { path: 'hyperlink_clicked', populate: allColorFields },
+];
 
 const resolvers = {
   Query: {
     users: async () => {
-      User.find({})
+      const results = User.find({})
         .populate({
           path: 'themes',
-          perDocumentLimit: 10, // This will ensure only the first 10 themes are loaded, per user.
-        })
-        .populate({
-          path: 'themes',
-          populate: 'primary backgrounds accents typefaces hyperlink_unclicked hyperlink_clicked',
+          populate: allThemeFields,
         });
+
+      return results;
     },
     user: async (parent, args) => {
-      User.findById(args.id)
+      const results = User.findById(args.id)
         .populate({
           path: 'themes',
-          perDocumentLimit: 10, // This will ensure only the first 10 themes are loaded, per user.
-        })
-        .populate({
-          path: 'themes',
-          populate: 'primary backgrounds accents typefaces hyperlink_unclicked hyperlink_clicked',
+          populate: allThemeFields,
         });
+
+      return results;
     },
     themes: async () => {
-      Theme.find({})
-        .populate({
-          populate: 'primary backgrounds accents typefaces hyperlink_unclicked hyperlink_clicked',
-        });
+      const results = Theme.find({})
+        .populate(allThemeFields);
+
+      return results;
     },
     theme: async (parent, args) => {
-      Theme.findById(args.id)
-        .populate({
-          populate: 'primary backgrounds accents typefaces hyperlink_unclicked hyperlink_clicked',
-        });
+      const results = Theme.findById(args.id)
+        .populate(allThemeFields);
+
+      return results;
     },
     colors: async () => Color.find({}),
     color: async (parent, args) => Color.findById(args.id),
   },
   Mutation: {
-    addColor: async (parent, { color }) => Color.create(color),
-    changeColor: async (parent, { id, color }) => Color.updateOne({ _id: id }, { color }),
+    addColor: async (parent, args) => Color.create(args),
+    changeColor: async (parent, { id, color }) => {
+      await Color.updateOne({ _id: id }, { color });
 
-    // Let mongoose do the error handling. Using args instead of destructuring all args.
-    addTheme: async (parent, args) => Color.create(...args),
-    updateTheme: async (parent, args) => {
-      const filteredArgs = filterArgs(args);
-
-      Color.updateOne({ id: args.id }, { ...filteredArgs });
+      return Color.findById(id);
     },
 
+    // Let mongoose do the error handling. Using args instead of destructuring all args.
+    addTheme: async (parent, args) => Theme.create(args),
+    updateTheme: async (parent, args) => {
+      const filteredArgs = filterIdFromArgs(args);
+
+      await Theme.updateOne({ id: args.id }, { ...filteredArgs });
+
+      return Theme.findById(args.id)
+        .populate(allThemeFields);
+    },
+
+    addUser: async (parent, args) => User.create(args),
     addThemeToUser: async (parent, { userId, themeId }) => {
       const theUser = await User.findById(userId);
 
-      return User.updateOne({ _id: userId }, { themes: [...theUser.themes, themeId] });
+      if (!theUser.themes.includes(themeId)) {
+        await User.updateOne({ _id: userId }, { themes: [...theUser.themes, themeId] });
+      }
+
+      return User.findById(userId)
+        .populate({
+          path: 'themes',
+          populate: allThemeFields,
+        });
     },
     removeThemeFromUser: async (parent, { userId, themeId }) => {
       const theUser = await User.findById(userId);
 
       // Filter out theme to remove
-      const filteredThemes = theUser.themes.filter((themeRef) => themeRef !== themeId);
+      const filteredThemes = theUser.themes.filter((themeRef) => themeRef.toString() !== themeId);
+      await User.updateOne({ _id: userId }, { themes: filteredThemes });
 
-      // Delete theme
-      await Theme.findOneAndRemove({ _id: themeId });
-
-      return User.updateOne({ _id: userId }, { themes: filteredThemes });
+      return User.findById(userId)
+        .populate({
+          path: 'themes',
+          populate: allThemeFields,
+        });
     },
   },
 };

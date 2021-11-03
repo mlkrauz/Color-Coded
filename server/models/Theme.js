@@ -5,12 +5,10 @@ const { Schema, model } = mongoose;
 const themeSchema = new Schema({
   name: {
     type: String,
-    required: true,
     default: 'My Theme',
   },
   locked: {
     type: Boolean,
-    required: true,
     default: false,
   },
   primary: {
