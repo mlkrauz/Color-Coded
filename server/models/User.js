@@ -31,7 +31,7 @@ const userSchema = new Schema({
 /**
  * Middleware which creates encrypted password prior to save.
  */
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function passwordHash(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 8;
     this.password = await bcrypt.hash(this.password, saltRounds);
