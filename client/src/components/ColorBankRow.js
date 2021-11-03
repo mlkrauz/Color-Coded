@@ -12,8 +12,8 @@ export default function ColorBankRow() {
       <Row>
         <Col xs={1}>
           <ButtonGroup vertical>
-            <Button variant="outline-dark" >Edit</Button>
-            <Button variant="outline-dark">Delete</Button>
+            <Button variant="outline-dark" size="sm" >Edit</Button>
+            <Button variant="outline-dark" size="lg">Delete</Button>
           </ButtonGroup>
         </Col>
         <Col>
