@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
+import { validateEmail, validatePassword } from '../utils/helpers';
+import Button from 'react-bootstrap/Button'
 
 function Signup(props) {
     const [formState, setFormState] = useState({ email: '', password: ''});
+    const [errorMessage, setErrorMessage] = useState('');
     const [addUser] = useMutation(ADD_USER);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+
         const mutationResponse = await addUser({
             variables: {
                 email: formState.email,
@@ -17,6 +21,16 @@ function Signup(props) {
                 name: formState.name,
             },
         });
+
+        if (!validateEmail(mutationResponse.email)) {
+            setErrorMessage('Email is invalid');
+            return;
+          }
+
+          if (!validatePassword(mutationResponse.password)) {
+            setErrorMessage('Password needs to be at least 8 characters');
+            return;
+          }
 
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
@@ -67,9 +81,14 @@ function Signup(props) {
                   />
                 </div>
                 <div>
-                  <button type='submit'></button>
+                  <Button as='input' type='submit' value='Submit' variant='outline-dark'></Button>
                 </div>
             </form>
+            {errorMessage && (
+        <div>
+          <p className="error-text">{errorMessage}</p>
+        </div>
+      )}
         </div>
     );
 }
