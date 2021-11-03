@@ -11,8 +11,6 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation';
-import Design from './pages/Design';
-import Export from './pages/Export';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
