@@ -41,18 +41,33 @@ const typeDefs = gql`
   type Mutation {
     # Color mutations.
     addColor(color: String!): Color
-    changeColor(_id: ID!, color: String!): Color
+    changeColor(id: ID!, color: String!): Color
     changeTintOrShade(id: ID!, tint: Float, shade: Float, tintEnabled: Boolean, shadeEnabled: Boolean): Color
     
     # Theme mutations.
-    addTheme(name: String!, primary: Color!, backgrounds: [Color!], accents: [Color!], typefaces: [Color!],
-      hyperlink_unclicked: Color, hyperlink_clicked: Color): Theme
-    updateTheme(id: ID!, name: String, primary: Color, backgrounds: [Color!], accents: [Color!],
-      typefaces: [Color!], hyperlink_unclicked: Color, hyperlink_clicked: Color)
+    addTheme(
+      name: String!,
+      primary: ID!,
+      backgrounds: [ID!],
+      accents: [ID!],
+      typefaces: [ID!],
+      hyperlink_unclicked: ID,
+      hyperlink_clicked: ID
+    ): Theme
+    updateTheme(
+      id: ID!,
+      name: String,
+      primary: ID,
+      backgrounds: [ID!],
+      accents: [ID!],
+      typefaces: [ID!], 
+      hyperlink_unclicked: ID,
+      hyperlink_clicked: ID
+    ): Theme
 
     # User mutations.
-    addThemeToUser(userId: ID!, themeId: ID!)
-    removeThemeFromUser(userId: ID!, themeId: ID!)
+    addThemeToUser(userId: ID!, themeId: ID!): User
+    removeThemeFromUser(userId: ID!, themeId: ID!): User
   }
 `;
 
