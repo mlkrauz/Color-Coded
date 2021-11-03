@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation'
+import ColorPickerHome from './components/ColorPickerHome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ColorBank from './components/ColorBank';
 
