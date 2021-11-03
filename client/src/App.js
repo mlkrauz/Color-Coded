@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ColorBank from './components/ColorBank';
 
 import './App.css';
 
@@ -40,6 +41,7 @@ function App() {
     <ApolloProvider client={client}>
     <Router>
         <Navigation />
+        <ColorBank />
         <div>
             <Switch>
               <Route exact path="/" component={Home} />
