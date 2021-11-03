@@ -10,7 +10,7 @@ function Navigation() {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/home">Color-Coded</Navbar.Brand>
+        <Navbar.Brand href="/">Color-Coded</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/design">Design</Nav.Link> 
           <Nav.Link href="/export">Export</Nav.Link> 
