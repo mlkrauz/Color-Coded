@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
@@ -13,7 +12,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ColorBank from './components/ColorBank';
+
 
 import './App.css';
 
@@ -41,10 +40,11 @@ function App() {
     <ApolloProvider client={client}>
     <Router>
         <Navigation />
-        <ColorBank />
         <div>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/design" component={Design} />
+              <Route exact path="/export" component={Export} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
             </Switch> 

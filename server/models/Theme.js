@@ -38,6 +38,18 @@ const themeSchema = new Schema({
   },
 });
 
+/**
+ * A virtual function which gets all colors owned by the Theme.
+ */
+themeSchema.virtual('allColors').get(() => [
+  this.primary,
+  ...this.backgrounds,
+  ...this.accents,
+  ...this.typefaces,
+  this.hyperlink_clicked,
+  this.hyperlink_unclicked,
+]);
+
 const Theme = model('Theme', themeSchema);
 
 export default Theme;
