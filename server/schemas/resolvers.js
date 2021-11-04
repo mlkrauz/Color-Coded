@@ -1,4 +1,6 @@
+import { AuthenticationError } from 'apollo-server-express';
 import { User, Theme, Color } from '../models/index.js';
+import { signToken } from '../utils/auth.js';
 
 /**
  * @param {Any} args - Object containing args.
@@ -79,7 +81,12 @@ const resolvers = {
         .populate(allThemeFields);
     },
 
-    addUser: async (parent, args) => User.create(args),
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+
+      return { token, user };
+    },
     addThemeToUser: async (parent, { userId, themeId }) => {
       const theUser = await User.findById(userId);
 
@@ -105,6 +112,23 @@ const resolvers = {
           path: 'themes',
           populate: allThemeFields,
         });
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
     },
   },
 };
