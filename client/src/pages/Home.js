@@ -3,8 +3,6 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-import Colorpicker from '../components/color_picker/Colorpicker';
-
 const Home = () => {
   return (
     <><Card border="dark" style={{ width: '18rem' }}>
