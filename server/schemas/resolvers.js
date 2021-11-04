@@ -121,7 +121,7 @@ const resolvers = {
       }
 
       const correctPw = await user.isCorrectPassword(password);
-      console.log(correctPw);
+
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials2');
       }
