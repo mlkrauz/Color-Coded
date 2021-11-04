@@ -43,7 +43,9 @@ userSchema.pre('save', async function passwordHash(next) {
 /**
  * Compare the incoming password to the encrypted password.
  */
-userSchema.methods.isCorrectPassword = async (password) => bcrypt.compare(password, this.password);
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const User = model('User', userSchema);
 
