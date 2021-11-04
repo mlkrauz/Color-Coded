@@ -18,6 +18,7 @@ function Login(props) {
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
+      setFormState({ email: '', password: '' });
     } catch (err) {
       console.log(err);
     }
@@ -65,7 +66,7 @@ function Login(props) {
           </div>
         ) : null}
         <div>
-          <Button as='input' type='submit' value='Submit' variant='outline-dark'></Button>
+          <Button as='input' type='submit' value='Login' variant='outline-dark'></Button>
         </div>
       </form>
     </div>
