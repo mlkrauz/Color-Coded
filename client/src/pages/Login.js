@@ -19,6 +19,7 @@ function Login(props) {
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
+      setFormState({ email: '', password: '' });
     } catch (err) {
       console.log(err);
     }

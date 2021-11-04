@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
-import { validateEmail, validatePassword } from '../utils/helpers';
+// import { validateEmail, validatePassword } from '../utils/helpers';
 import Button from 'react-bootstrap/Button'
 import Stack from 'react-bootstrap/Stack';
 
 function Signup(props) {
-    const [formState, setFormState] = useState({ email: '', password: ''});
+    const [formState, setFormState] = useState({ name: '', email: '', password: ''});
     const [errorMessage, setErrorMessage] = useState('');
     const [addUser] = useMutation(ADD_USER);
 
@@ -23,18 +23,19 @@ function Signup(props) {
             },
         });
 
-        if (!validateEmail(mutationResponse.email)) {
-            setErrorMessage('Email is invalid');
-            return;
-          }
+        // if (!validateEmail(mutationResponse.email)) {
+        //     setErrorMessage('Email is invalid');
+        //     return;
+        //   }
 
-          if (!validatePassword(mutationResponse.password)) {
-            setErrorMessage('Password needs to be at least 8 characters');
-            return;
-          }
+        //   if (!validatePassword(mutationResponse.password)) {
+        //     setErrorMessage('Password needs to be at least 8 characters');
+        //     return;
+        //   }
 
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
+        setFormState({ name: '', email: '', password: ''});
     };
 
     const handleChange = (event) => {
@@ -43,7 +44,7 @@ function Signup(props) {
             ...formState,
             [name]: value,
         });
-    };
+    }
 
     return (
         <div>
