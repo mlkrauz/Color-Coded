@@ -30,6 +30,11 @@ const typeDefs = gql`
     tintEnabled: Boolean!
   }
 
+  type Auth {
+    token: ID
+    user: User
+  }
+
   type Query {
     users: [User!]
     themes: [Theme!]
@@ -76,13 +81,16 @@ const typeDefs = gql`
       hyperlink_clicked: ID
     ): Theme
 
-    # User mutations.
+    # Auth mutations.
     addUser(
       name: String!
       email: String!
       password: String!
       themes: [ID]
-    ): User
+    ): Auth
+    login(email: String!, password: String!): Auth
+
+     # User mutations.
     addThemeToUser(
       userId: ID!,
       themeId: ID!
