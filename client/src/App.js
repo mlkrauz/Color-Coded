@@ -11,8 +11,13 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation';
+import Design from './pages/Design';
+import Export from './pages/Export';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/esm/Col';
 
 import './App.css';
 
@@ -40,18 +45,29 @@ function App() {
     <ApolloProvider client={client}>
     <Router>
         <Navigation />
-        <div>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/design" component={Design} />
-              <Route exact path="/export" component={Export} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-            </Switch> 
-        </div>
-      </Router>
+        
+        <Container fluid>
+            <Row className="justify-content-center">
+                <Col lg></Col>
+                <Col md="auto">
+                    <Card border="dark" style={{width: '18rem'}}>
+                    <div>
+                       <Switch>
+                          <Route exact path="/" component={Home} />
+                          <Route exact path="/design" component={Design} />
+                          <Route exact path="/export" component={Export} />
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/signup" component={Signup} />
+                       </Switch> 
+                    </div>
+                    </Card>
+                </Col>
+                <Col lg></Col>
+            </Row>
+        </Container>
+        </Router>
     </ApolloProvider>
-  );
-}
+    );
+};
 
 export default App;
