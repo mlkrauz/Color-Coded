@@ -5,6 +5,7 @@ import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 import { validateEmail, validatePassword } from '../utils/helpers';
 import Button from 'react-bootstrap/Button'
+import Stack from 'react-bootstrap/Stack';
 
 function Signup(props) {
     const [formState, setFormState] = useState({ email: '', password: ''});
@@ -48,19 +49,20 @@ function Signup(props) {
         <div>
             <Link to="/login">← Go to Login</Link>
 
-            <h2>Signup</h2>
-            <form onSubmit={handleFormSubmit}>
-                <div>
+            <h2 className="mx-2">Signup</h2>
+            <form className="p-3" onSubmit={handleFormSubmit}>
+                <Stack gap={2} className="col-md-5 mx-4 ps-5 ">
+                <div className="pb-2">
                     <label htmlFor='name'>Name:</label>
                     <input
-                        placeholder='name'
+                        placeholder='Name'
                         name='name'
                         type='name'
                         id='name'
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="pb-2">
                     <label htmlFor='email'>Email:</label>
                     <input
                       placeholder='youremail@test.com'
@@ -70,7 +72,7 @@ function Signup(props) {
                       onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="pb-2">
                   <label htmlFor='pwd'>Password:</label>
                   <input
                     placeholder="******"
@@ -83,6 +85,7 @@ function Signup(props) {
                 <div>
                   <Button as='input' type='submit' value='Submit' variant='outline-dark'></Button>
                 </div>
+                </Stack>
             </form>
             {errorMessage && (
         <div>
