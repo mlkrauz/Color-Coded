@@ -3,7 +3,8 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
 
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -36,11 +37,12 @@ function Login(props) {
     <div>
       <Link to='/signup'>← Go to Signup</Link>
 
-      <h2>Login</h2>
-      <form onSubmit={handleFormSubmit}>
+      <h2 className="mx-2">Login</h2>
+      <form className="p-3 " onSubmit={handleFormSubmit}>
+        <Stack gap={2} className="col-md-5 mx-5 ps-5">
         <div>
-          <label htmlFor='email'>Email address:</label>
-          <input
+          <label className="me-2" htmlFor='email'>Email address:</label>
+          <input className="my-1"
             placeholder='youremail@test.com'
             name='email'
             type='email'
@@ -49,8 +51,8 @@ function Login(props) {
           />
         </div>
         <div>
-          <label htmlFor='pwd'>Password:</label>
-          <input
+          <label className="me-2 " htmlFor='pwd'>Password:</label>
+          <input className="my-1 justify-content-end"
             placeholder='******'
             name='password'
             type='password'
@@ -66,10 +68,12 @@ function Login(props) {
           </div>
         ) : null}
         <div>
-          <Button as='input' type='submit' value='Login' variant='outline-dark'></Button>
+          <Button className="mt-2" as='input' type='submit' value='Submit' variant='outline-dark'></Button>
         </div>
+        </Stack>
       </form>
     </div>
+
   );  
 }
 

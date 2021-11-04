@@ -50,7 +50,7 @@ function App() {
             <Row className="justify-content-center">
                 <Col lg></Col>
                 <Col md="auto">
-                    <Card border="dark" style={{width: '18rem'}}>
+                    <Card  className="mt-5 " border="dark" >
                     <div>
                        <Switch>
                           <Route exact path="/" component={Home} />
