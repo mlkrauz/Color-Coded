@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
-// import { validateEmail, validatePassword } from '../utils/helpers';
 import Button from 'react-bootstrap/Button'
 import Stack from 'react-bootstrap/Stack';
 
 function Signup(props) {
     const [formState, setFormState] = useState({ name: '', email: '', password: ''});
-    const [errorMessage, setErrorMessage] = useState('');
-    const [addUser] = useMutation(ADD_USER);
+    // const [errorMessage, setErrorMessage] = useState('');
+    const [addUser, { error }] = useMutation(ADD_USER);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        try {
 
         const mutationResponse = await addUser({
             variables: {
@@ -23,19 +23,13 @@ function Signup(props) {
             },
         });
 
-        // if (!validateEmail(mutationResponse.email)) {
-        //     setErrorMessage('Email is invalid');
-        //     return;
-        //   }
-
-        //   if (!validatePassword(mutationResponse.password)) {
-        //     setErrorMessage('Password needs to be at least 8 characters');
-        //     return;
-        //   }
 
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
         setFormState({ name: '', email: '', password: ''});
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     const handleChange = (event) => {
@@ -83,16 +77,18 @@ function Signup(props) {
                     onChange={handleChange}
                   />
                 </div>
+                {error ? (
+          <div>
+            <p>
+              The password must be at least 8 characters long
+            </p>
+          </div>
+        ) : null}
                 <div>
                   <Button as='input' type='submit' value='Submit' variant='outline-dark'></Button>
                 </div>
                 </Stack>
             </form>
-            {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage}</p>
-        </div>
-      )}
         </div>
     );
 }
