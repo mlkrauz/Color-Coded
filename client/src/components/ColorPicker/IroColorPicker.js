@@ -13,7 +13,7 @@ const IroColorPicker = ({ newColor, onChangeCallback }) => {
     const iroSettings = {
       // Set the size of the color picker
       width: 180,
-      color: '#FFFFFF',
+      color: '#FFFFFF', //{h: 360, s: 0, v: 100},
       layout: [
         { 
           component: iro.ui.Wheel,
@@ -52,7 +52,7 @@ const IroColorPicker = ({ newColor, onChangeCallback }) => {
 
   // We can create a second useEffect to update the iro color picker when we want to render a new color.
   useEffect(() => {
-    colorPickerRef.current.color.rgb = newColor;
+    colorPickerRef.current.color.hexString = newColor;
   }, [newColor])
 
   // Return an empty <div> with our iro color picker bound to it.
