@@ -1,24 +1,21 @@
 import React from 'react';
 import Auth from '../utils/auth';
 
-import Stack from 'react-bootstrap/Stack';
 import ColorBank from '../components/ColorBank';
 import Colorpicker from '../components/ColorPicker/Colorpicker';
-
-
+import ColorCard from '../components/ColorCard';
 
 const Design = () => {
-
   if(Auth.loggedIn()) {
     return (
-      <Stack direction="horizontal" className="d-flex justify-content-between" gap={5} className="mx-5" >
-     
-     <Colorpicker/>
-     
-      <ColorBank />
-      
-  
-      </Stack>
+      <>
+        <ColorCard title='Select which theme to design!'>
+          <ColorBank />
+        </ColorCard>
+        <ColorCard title='Design your theme!'>
+          <Colorpicker />
+        </ColorCard>
+      </>
     )
     } else {
     return (
@@ -26,7 +23,5 @@ const Design = () => {
       )
     }
   }
-
-
 
 export default Design;
