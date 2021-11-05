@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Auth from '../utils/auth';
 
 import  Col  from 'react-bootstrap/Col'; 
 import Card from 'react-bootstrap/Card';
@@ -7,7 +7,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/row';
 
 
-const Export = () => (
+const Export = () => {
+
+  if(Auth.loggedIn()) {
+    return (
     <Container>
         <Row>
             <Col></Col>
@@ -29,7 +32,13 @@ const Export = () => (
 <Col></Col>
 </Row>
 </Container>
-)
+    )
+  } else {
+    return (
+      window.location.href = '/login'
+    )
+  }
+}
 
 
 
