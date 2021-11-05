@@ -5,6 +5,7 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
+import ColorCard from '../components/ColorCard';
 
 function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -35,9 +36,9 @@ function Login(props) {
 
   return (
     <div>
+      <ColorCard title='Login'>
       <Link to='/signup'>← Go to Signup</Link>
 
-      <h2 className="mx-2">Login</h2>
       <form className="p-3 " onSubmit={handleFormSubmit}>
         <Stack gap={2} className="col-md-5 mx-5 ps-5">
         <div>
@@ -72,6 +73,7 @@ function Login(props) {
         </div>
         </Stack>
       </form>
+      </ColorCard>
     </div>
 
   );  
