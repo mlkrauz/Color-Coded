@@ -43,31 +43,20 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
+      <Router>
         <Navigation />
         
-        <Container fluid>
-            <Row className="justify-content-center">
-                <Col lg></Col>
-                <Col md="auto">
-                    <Card  className="mt-5 " border="dark" >
-                    <div>
-                       <Switch>
-                          <Route exact path="/" component={Home} />
-                          <Route exact path="/design" component={Design} />
-                          <Route exact path="/export" component={Export} />
-                          <Route exact path="/login" component={Login} />
-                          <Route exact path="/signup" component={Signup} />
-                       </Switch> 
-                    </div>
-                    </Card>
-                </Col>
-                <Col lg></Col>
-            </Row>
-        </Container>
-        </Router>
+          <Switch>
+             <Route exact path="/" component={Home} />
+             <Route exact path="/design" component={Design} />
+             <Route exact path="/export" component={Export} />
+             <Route exact path="/login" component={Login} />
+             <Route exact path="/signup" component={Signup} />
+          </Switch> 
+
+      </Router>
     </ApolloProvider>
-    );
+  );
 };
 
 export default App;
