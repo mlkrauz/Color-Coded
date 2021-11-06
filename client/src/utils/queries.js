@@ -16,8 +16,34 @@ export const QUERY_SINGLE_USER = gql`
     user(id: $id) {
       _id
       themes {
+      _id
+      name
+      locked
+      primary {
         _id
+        color
       }
+      backgrounds {
+        _id
+        color
+      }
+      accents {
+        _id
+        color
+      }
+      typefaces {
+        _id
+        color
+      }
+      hyperlink_unclicked {
+        _id
+        color
+      }
+      hyperlink_clicked {
+        _id
+        color
+      }
+    }
     }
   }
 `;
