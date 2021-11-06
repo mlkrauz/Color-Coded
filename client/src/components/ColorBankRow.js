@@ -26,8 +26,8 @@ export default function ColorBankRow({ theme }) {
       ...theme?.backgrounds || [],
       ...theme?.accents || [],
       ...theme?.typefaces || [],
-      theme?.hyperlink_clicked || [],
-      theme?.hyperlink_unclicked || []
+      theme?.hyperlink_clicked,
+      theme?.hyperlink_unclicked
     ])
   }, [loading, data, setColors]);
 
@@ -41,9 +41,10 @@ export default function ColorBankRow({ theme }) {
           </ButtonGroup>
         </Container>
         <Stack direction="horizontal" className='mx-3 my-3 d-flex justify-content-center' gap={3}>
-          {colors.map((colorObj) => {
+          {colors.map((colorObj, index) => {
             return (colorObj ?
-              <Card 
+              <Card
+                key={index}
                 className="p-3 mx-1"
                 border="dark"
                 style={{ width: '1rem', height: '5rem', 'background': colorObj.color }}
