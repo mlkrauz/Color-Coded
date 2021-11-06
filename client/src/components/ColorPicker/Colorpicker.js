@@ -8,20 +8,8 @@ import Ratio from 'react-bootstrap/Ratio'
 import Button from 'react-bootstrap/Button'
 
 function Colorpicker({ theme }) {
-  
-  const [state, setstate] = useState({
-    iroColor: '#ffffff',
-    newColor: '#ffffff'
-  });
 
-  const [colors, setColors] = useState([
-    theme.primary,
-    ...theme.backgrounds || [],
-    ...theme.accents || [],
-    ...theme.typefaces || [],
-    theme.hyperlink_clicked,
-    theme.hyperlink_unclicked
-  ]);
+  const [colors, setColors] = useState([{ color: '#ffffff'}]);
   const [selectedColor, setSelectedColor] = useState(0);
 
   useEffect(() => {
@@ -35,7 +23,16 @@ function Colorpicker({ theme }) {
     ])
   }, [theme])
 
+  /*useEffect(() => {
+    setState({...state, newColor: colors[selectedColor].color || '#ffffff'})
+  }, [colors, state, selectedColor]);*/
+
   const selectColorCb = (index) => setSelectedColor(index)
+
+  const [state, setState] = useState({
+    iroColor: '#ffffff',
+    newColor: colors[selectedColor].color || '#ffffff'
+  });
 
   return (
     <Container>
@@ -47,7 +44,7 @@ function Colorpicker({ theme }) {
                 <Button 
                   key={index}
                   className='my-2'
-                  style={{width: '5rem', height: '5rem', 'background': colorObj.color}}
+                  style={{width: '5rem', height: '5rem', 'background': (index === selectedColor ? state.iroColor : colorObj.color)}}
                   onClick={() => selectColorCb(index)}
                 >
                   {(index === selectedColor ? '✔️' : '' )}
@@ -61,7 +58,7 @@ function Colorpicker({ theme }) {
         <Container md='9' className='d-flex justify-content-center'>
           <IroColorPicker
             newColor={state.newColor}
-            onChangeCallback={(colorString) => setstate({ ...state, iroColor: colorString })}
+            onChangeCallback={(colorString) => setState({ ...state, iroColor: colorString })}
           />
         </Container>
       </Stack>
