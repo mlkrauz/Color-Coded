@@ -31,7 +31,7 @@ function Colorpicker({ theme }) {
 
   const [state, setState] = useState({
     iroColor: '#ffffff',
-    newColor: colors[selectedColor].color || '#ffffff'
+    newColor: colors[selectedColor]?.color || '#ffffff'
   });
 
   return (
