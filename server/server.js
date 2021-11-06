@@ -31,14 +31,14 @@ app.use(express.json());
 
 // The variable __dirname is not exposed by node when using ES6 module imports.
 // We can recreate __dirname with an empty path.resolve()
-const dirname = path.resolve();
+// const dirname = path.resolve();
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(resolve(dirname, '../client/build')));
+  app.use(express.static('/app/client/build'));
 }
 
 app.get('*', (req, res) => {
-  res.sendFile(resolve(dirname, '../client/build/index.html'));
+  res.sendFile('/app/client/build/index.html');
 });
 
 db.once('open', () => {
