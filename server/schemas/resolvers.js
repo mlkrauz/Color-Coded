@@ -114,7 +114,10 @@ const resolvers = {
         });
     },
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email }).populate({
+        path: 'themes',
+        populate: allThemeFields,
+      });
 
       if (!user) {
         throw new AuthenticationError('Incorrect credentials1');

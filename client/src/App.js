@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
@@ -11,13 +12,12 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navigation from './components/Navigation';
+import store from './utils/store';
+import { Provider } from 'react-redux';
+import { UserProvider } from './utils/userContext.js'
 import Design from './pages/Design';
 import Export from './pages/Export';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/esm/Col';
 
 import './App.css';
 
@@ -41,11 +41,12 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Navigation />
-        
+      <Provider store={store}>
+        <Router>
+          <Navigation />
           <Switch>
              <Route exact path="/" component={Home} />
              <Route exact path="/design" component={Design} />
@@ -53,8 +54,8 @@ function App() {
              <Route exact path="/login" component={Login} />
              <Route exact path="/signup" component={Signup} />
           </Switch> 
-
-      </Router>
+        </Router>
+      </Provider>
     </ApolloProvider>
   );
 };
