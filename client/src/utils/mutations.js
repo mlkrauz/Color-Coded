@@ -9,6 +9,33 @@ export const LOGIN = gql`
       token
       user {
         _id
+        name
+        email
+        themes {
+          _id
+          name
+          locked
+          backgrounds {
+            _id
+            color
+          }
+          accents {
+            _id
+            color
+          }
+          typefaces {
+            _id
+            color
+          }
+          hyperlink_unclicked {
+            _id
+            color
+          }
+          hyperlink_clicked {
+            _id
+            color
+          }
+        }
       }
     }
   }
@@ -110,7 +137,7 @@ export const ADD_THEME = gql`
         _id
         color
       }
-      typeface {
+      typefaces {
         _id
         color
       }
@@ -160,7 +187,7 @@ export const UPDATE_THEME = gql`
         _id
         color
       }
-      typeface {
+      typefaces {
         _id
         color
       }
