@@ -9,7 +9,8 @@
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,6 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {},
+  "heroku-run-build-script": true
 }
