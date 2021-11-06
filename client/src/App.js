@@ -42,6 +42,8 @@ const client = new ApolloClient({
 
 function App() {
 
+  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
@@ -49,8 +51,8 @@ function App() {
           <Navigation />
           <Switch>
              <Route exact path="/" component={Home} />
-             <Route exact path="/design" component={Design} />
-             <Route exact path="/export" component={Export} />
+             <Route exact path="/design" component={() => <Design userId={userId} />} />
+             <Route exact path="/export" component={() => <Export userId={userId} />} />
              <Route exact path="/login" component={Login} />
              <Route exact path="/signup" component={Signup} />
           </Switch> 

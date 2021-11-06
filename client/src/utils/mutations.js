@@ -9,33 +9,6 @@ export const LOGIN = gql`
       token
       user {
         _id
-        name
-        email
-        themes {
-          _id
-          name
-          locked
-          backgrounds {
-            _id
-            color
-          }
-          accents {
-            _id
-            color
-          }
-          typefaces {
-            _id
-            color
-          }
-          hyperlink_unclicked {
-            _id
-            color
-          }
-          hyperlink_clicked {
-            _id
-            color
-          }
-        }
       }
     }
   }
@@ -46,11 +19,13 @@ export const ADD_USER = gql`
     $name: String!
     $email: String!
     $password: String!
+    $themes: [ID]
   ) {
     addUser(
       name: $name
       email: $email
       password: $password
+      themes: $themes
     ) {
       token
       user {
@@ -122,13 +97,17 @@ export const ADD_THEME = gql`
       primary: $primary
       backgrounds: $backgrounds
       accents: $accents
-      typeface: $typeface
+      typefaces: $typefaces
       hyperlink_unclicked: $hyperlink_unclicked
       hyperlink_clicked: $hyperlink_clicked
     ) {
       _id
       name
       locked
+      primary {
+        _id
+        color
+      }
       backgrounds {
         _id
         color

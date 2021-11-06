@@ -71,7 +71,12 @@ const resolvers = {
     },
 
     // Let mongoose do the error handling. Using args instead of destructuring all args.
-    addTheme: async (parent, args) => Theme.create(args),
+    addTheme: async (parent, args) => {
+      const newTheme = await Theme.create(args);
+
+      return Theme.findById(newTheme._id)
+        .populate(allThemeFields);
+    },
     updateTheme: async (parent, args) => {
       const filteredArgs = filterIdFromArgs(args);
 

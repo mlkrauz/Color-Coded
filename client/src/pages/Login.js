@@ -6,12 +6,10 @@ import Auth from '../utils/auth';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import ColorCard from '../components/ColorCard';
-import { useUserContext } from '../utils/userContext'
 
 function Login() {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
-  const { user, sendUserCallback } = useUserContext();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -21,12 +19,8 @@ function Login() {
         password: formState.password },
       });
       const token = mutationResponse.data.login.token;
-      
-      // Very important! This sends the user data to the parent App.
-      sendUserCallback(mutationResponse.data.login.user);
-      console.log(user)
 
-      Auth.login(token);
+      Auth.login(token, mutationResponse.data.login.user._id);
       setFormState({ email: '', password: '' });
     } catch (err) {
       console.log(err);

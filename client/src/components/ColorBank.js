@@ -4,16 +4,15 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
-export default function ColorBank() {
+export default function ColorBank({ themes }) {
   return (
-    <div>
-      <Card fluid border='dark'>
-        <ListGroup>
-        <ListGroup.Item><ColorBankRow /></ListGroup.Item> 
-        <ListGroup.Item><ColorBankRow /></ListGroup.Item> 
-        <ListGroup.Item><ColorBankRow /></ListGroup.Item> 
-        </ListGroup>
-      </Card>
-    </div>
+      <ListGroup>
+        {themes.map((theme) => {
+            return (
+              <ListGroup.Item><ColorBankRow theme={theme} /></ListGroup.Item>
+            )
+          })
+        }
+      </ListGroup>
   );
 }

@@ -18,9 +18,8 @@ function Colorpicker(props) {
   return (
     <Container>
       <Stack direction="horizontal" gap={3}>
-        <div md='5' className='d-flex justify-content-center overflow-scroll'  style={{ width: '8rem', height: '35rem' }}>
+        <div md='5' className='d-flex justify-content-center overflow-hidden'  style={{ width: '8rem', height: '35rem' }}>
           <Stack direction="vertical" className='mx-3 my-3 d-flex justify-content-center'>
-            <Button className='my-2' variant="secondary">🔼</Button>
             <Ratio className='my-2' aspectRatio='1x1'>
               <div className='d-flex justify-content-center' style={{'background': '#FF0000'}}>
               </div>
@@ -50,7 +49,6 @@ function Colorpicker(props) {
               <div style={{'background': '#000000'}}>
               </div>
             </Ratio>
-            <Button className='my-2' variant="secondary">🔽</Button>
           </Stack>
         </div>
         <Container md='9' className='d-flex justify-content-center'>
