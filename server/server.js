@@ -2,6 +2,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import path, { resolve } from 'path';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import db from './config/connection.js';
 import { authMiddleware } from './utils/auth.js';
 import { typeDefs, resolvers } from './schemas/index.js';
@@ -16,6 +17,12 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 
 server.applyMiddleware({ app });
 
